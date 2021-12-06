@@ -24,7 +24,7 @@ public class Responder
     // Default responses to use if we don't recognise a word.
     private ArrayList<String> defaultResponses;
     // The name of the file containing the default responses.
-    private static final String FILE_OF_DEFAULT_RESPONSES = "default.txt";
+    private static final String FILE_OF_DEFAULT_RESPONSES = "default2.txt";
     private Random randomGenerator;
 
     /**
@@ -67,6 +67,7 @@ public class Responder
      */
     private void fillResponseMap()
     {
+        
         responseMap.put("crash", 
                         "Well, it never crashes on our system. It must have something\n" +
                         "to do with your system. Tell me more about your configuration.");
@@ -113,6 +114,12 @@ public class Responder
                         "Ahhh, BlueJ, yes. We tried to buy out those guys long ago, but\n" +
                         "they simply won't sell... Stubborn people they are. Nothing we can\n" +
                         "do about it, I'm afraid.");
+                        
+        
+                        
+        
+                        
+        
     }
 
     /**
@@ -125,9 +132,23 @@ public class Responder
         Path path = Paths.get(FILE_OF_DEFAULT_RESPONSES);
         try (BufferedReader reader = Files.newBufferedReader(path, charset)) {
             String response = reader.readLine();
+            String x = "";
             while(response != null) {
-                defaultResponses.add(response);
-                response = reader.readLine();
+                String key = reader.readLine();
+                responseMap.put(response,key);
+                key = reader.readLine();
+                if(!response.isEmpty()){
+                    defaultResponses.add(x);
+                    x = "";
+                }
+                else {
+                    x += response;
+                }
+                //defaultResponses.add(response);
+                //response = reader.readLine();
+                if(!x.isEmpty()){
+                    defaultResponses.add(x);
+                }
             }
         }
         catch(FileNotFoundException e) {
